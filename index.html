@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synchronized Multi-Tab Screenshot Capture</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            color: #555;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Multi-Tab Screenshot Capture Simulation</h1>
+    <p>Click "Open Tabs" to open multiple tabs and "Capture Screenshots" to simulate screenshot capture.</p>
+    <button id="open-tabs" class="button">Open Tabs</button>
+    <button id="capture-screenshots" class="button" disabled>Capture Screenshots</button>
+
+    <script>
+        const urls = [
+            'https://clock.zone',
+            'https://clock.zone',
+            'https://clock.zone'
+        ];
+        let tabs = [];
+        function openMultipleTabs() {
+            tabs = urls.map(url => window.open(url, '_blank'));
+            document.getElementById('capture-screenshots').disabled = false;
+        }
+        function captureScreenshots() {
+            if (tabs.some(tab => tab.closed)) {
+                alert('Some tabs are closed. Please ensure all tabs are open.');
+                return;
+            }
+            tabs.forEach(tab => {
+                try {
+                    console.log(`Capturing screenshot of tab with URL: ${tab.location.href}`);
+                } catch (error) {
+                    console.error('Error capturing screenshot:', error);
+                }
+            });
+
+            alert('Simulated screenshot capture completed. Actual implementation would involve browser automation or extensions.');
+            tabs.forEach(tab => tab.close());
+            tabs = [];
+            document.getElementById('capture-screenshots').disabled = true;
+        }
+
+        document.getElementById('open-tabs').addEventListener('click', openMultipleTabs);
+        document.getElementById('capture-screenshots').addEventListener('click', captureScreenshots);
+    </script>
+</body>
+</html>
