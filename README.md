@@ -1,0 +1,1 @@
+# Synchronized-Multi-Tab-Screenshot-Capture
